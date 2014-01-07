@@ -22,70 +22,12 @@ Ext.define('SInPLes.view.Main' ,{
 		pl.add('idCitizen', 1);
 		var url = 'http://localhost:8080/DBAccessWS/services/DBAccessWSI';
 		SOAPClient.invoke(url, "getProjectView", pl, true, function(r){console.log('SOAP response', r);});
+		pl = new SOAPClientParameters();
+                pl.add('username', 'zedasilva');
+                pl.add('password', '0f98sh');
+                url = 'http://localhost:8080/IdentityWS/services/IdentityWSI';
+                SOAPClient.invoke(url, "login", pl, true, function(r){console.log('SOAP response', r);});
 		//
 		me.callParent(arguments);
-//		var mystore = Ext.create('Ext.data.Store',{
-//			model: 'MVCAPP.model.Simplemodel'
-//		});
-//		Highcharts.data({
-//			svg: 'http://upload.wikimedia.org/wikipedia/commons/7/76/World_V2.0.svg',
-//			complete: function (options) {
-//				mystore.loadData(options.series[0].data);
-//				console.debug('mystore is ', mystore);
-//			}
-//		});
-//		me.add({
-//			xtype: 'highchart',
-//
-//			store: mystore,
-//			
-//			series: [
-//				{type: 'map'}
-//			],
-//			chartConfig: {
-//		
-//				chart : {
-//					type: 'map',
-//					borderWidth : 1,
-//					zoomType: 'xy'
-//				},
-//			
-//				title: {
-//					text: null
-//				},
-//			
-//				legend: {
-//					enabled: false
-//				},
-//
-//				credits: {
-//					enabled: false
-//				},
-//
-//				plotOptions: {
-//					map: {
-//						name: 'Random',
-//						svg: 'http://upload.wikimedia.org/wikipedia/commons/7/76/World_V2.0.svg',
-//						colorRange: {
-//							from: '#cedae8',
-//							to: '#1a416d'
-//						},
-//						dataLabels: {
-//							//enabled: true,
-//							format: '{point.name}',
-//							backgroundColor: 'rgba(255,255,255,0.4)'
-//						},
-//						tooltip: {
-//							valueSuffix: '%'
-//						},
-//						states: {
-//							hover: {
-//								color: '#FF7F00' // orange
-//							}
-//						}
-//					}
-//				}
-//			}
-//		});
 	}
 });

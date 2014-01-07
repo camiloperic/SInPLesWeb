@@ -26,6 +26,7 @@ function SOAPClientParameters()
                 case "number":
                 case "boolean":
                 case "object":
+//                    xml += "<q0:" + p + ">" + SOAPClientParameters._serialize(_pl[p]) + "</q0:" + p + ">";
                     xml += "<" + p + ">" + SOAPClientParameters._serialize(_pl[p]) + "</" + p + ">";
                     break;
                 default:
@@ -134,6 +135,9 @@ SOAPClient._loadWsdl = function(url, method, parameters, async, callback)
 	// get wsdl
 	var xmlHttp = SOAPClient._getXmlHttp();
 	xmlHttp.open("GET", url + "?wsdl", async);
+//	xmlHttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+//	xmlHttp.setRequestHeader("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+//	xmlHttp.setRequestHeader("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS");
 	if(async) 
 	{
 		xmlHttp.onreadystatechange = function() 
@@ -149,6 +153,7 @@ SOAPClient._loadWsdl = function(url, method, parameters, async, callback)
 SOAPClient._onLoadWsdl = function(url, method, parameters, async, callback, req)
 {
 	var wsdl = req.responseXML;
+	console.log("wsdl", wsdl);
 	SOAPClient_cacheWsdl[url] = wsdl;	// save a copy in cache
 	return SOAPClient._sendSoapRequest(url, method, parameters, async, callback, wsdl);
 }
@@ -162,10 +167,13 @@ SOAPClient._sendSoapRequest = function(url, method, parameters, async, callback,
 				"<soap:Envelope " +
 				"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " +
 				"xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" " +
+//				"xmlns:q0=\"http://wsi.sinples.br\" " +
 				"xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
 				"<soap:Body>" +
+//				"<q0:" + method + ">" +
 				"<" + method + " xmlns=\"" + ns + "\">" +
 				parameters.toXml() +
+//				"</q0:" + method + "></soap:Body></soap:Envelope>";
 				"</" + method + "></soap:Body></soap:Envelope>";
 	// send request
 	var xmlHttp = SOAPClient._getXmlHttp();
@@ -176,9 +184,16 @@ SOAPClient._sendSoapRequest = function(url, method, parameters, async, callback,
 	}
 	else
 		xmlHttp.open("POST", url, async);
+//		xmlHttp.open("POST", url + ".DBAccessWSIHttpSoap11Endpoint/", async);
 	var soapaction = ((ns.lastIndexOf("/") != ns.length - 1) ? ns + "/" : ns) + method;
 	xmlHttp.setRequestHeader("SOAPAction", soapaction);
 	xmlHttp.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+	xmlHttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+//	xmlHttp.setRequestHeader("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+	xmlHttp.setRequestHeader("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS");
+//	xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//    xmlHttp.setRequestHeader("Content-length", parameters.length);
+//    xmlHttp.setRequestHeader("Connection", "close");
 	if(async) 
 	{
 		xmlHttp.onreadystatechange = function() 
