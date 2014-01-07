@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://wsi.sinples.br" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:ax25="http://view.model.sinples.br/xsd" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax23="http://model.sinples.br/xsd" xmlns:ax21="http://dbmodel.sinples.br/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsi.sinples.br">
+    <wsdl:documentation>
+		Please Type your service description here
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax26="http://dbmodel.sinples.br/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://view.model.sinples.br/xsd">
+            <xs:import namespace="http://dbmodel.sinples.br/xsd"/>
+            <xs:complexType name="ProjectView">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="followers" type="xs:int"/>
+                    <xs:element minOccurs="0" name="following" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="project" nillable="true" type="ax26:Project"/>
+                    <xs:element minOccurs="0" name="signatures" type="xs:int"/>
+                    <xs:element minOccurs="0" name="signed" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArgumentView">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="agreed" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="agreements" type="xs:int"/>
+                    <xs:element minOccurs="0" name="argument" nillable="true" type="ax26:Argument"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.sinples.br/xsd">
+            <xs:complexType name="AgreeArgument">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="idArgument" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="AgreeComment">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idComment" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Signature">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Following">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Tagged">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idTag" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Keyworded">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idKeyword" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax27="http://view.model.sinples.br/xsd" xmlns:ax24="http://model.sinples.br/xsd" xmlns:ax22="http://dbmodel.sinples.br/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://wsi.sinples.br">
+            <xs:import namespace="http://dbmodel.sinples.br/xsd"/>
+            <xs:import namespace="http://model.sinples.br/xsd"/>
+            <xs:import namespace="http://view.model.sinples.br/xsd"/>
+            <xs:element name="saveCitizen">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="citizen" nillable="true" type="ax21:Citizen"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveCitizenResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveAgreeArgument">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="agreeArgument" nillable="true" type="ax23:AgreeArgument"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveAgreeArgumentResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveAgreeComment">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="agreeComment" nillable="true" type="ax23:AgreeComment"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveAgreeCommentResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveKeyword">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="keyword" nillable="true" type="ax21:Keyword"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveKeywordResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getProjectView">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                        <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getProjectViewResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax27:ProjectView"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getArguments">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                        <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                        <xs:element minOccurs="0" name="pro" type="xs:boolean"/>
+                        <xs:element minOccurs="0" name="max" type="xs:int"/>
+                        <xs:element minOccurs="0" name="offset" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getArgumentsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax27:ArgumentView"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveProject">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="project" nillable="true" type="ax21:Project"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveProjectResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveArgument">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="argument" nillable="true" type="ax21:Argument"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveArgumentResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveComment">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="comment" nillable="true" type="ax21:Comment"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveCommentResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveSignature">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="signature" nillable="true" type="ax23:Signature"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveSignatureResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveFollowing">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="following" nillable="true" type="ax23:Following"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveFollowingResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveTagged">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="tagged" nillable="true" type="ax23:Tagged"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveTaggedResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveKeyworded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="keyworded" nillable="true" type="ax23:Keyworded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="saveKeywordedResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isSketch">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isSketchResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="deleteKeyworded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="keyworded" nillable="true" type="ax23:Keyworded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="deleteKeywordedResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="test">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="testResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://dbmodel.sinples.br/xsd">
+            <xs:complexType name="Citizen">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="cpf" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="email" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="passwd" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Keyword">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Project">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idParent" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="sketch" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="text" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Argument">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="argument" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                    <xs:element minOccurs="0" name="pro" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Comment">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="comment" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idCitizen" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idParent" nillable="true" type="xs:int"/>
+                    <xs:element minOccurs="0" name="idProject" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="saveAgreeArgumentRequest">
+        <wsdl:part name="parameters" element="ns:saveAgreeArgument"/>
+    </wsdl:message>
+    <wsdl:message name="saveAgreeArgumentResponse">
+        <wsdl:part name="parameters" element="ns:saveAgreeArgumentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="isSketchRequest">
+        <wsdl:part name="parameters" element="ns:isSketch"/>
+    </wsdl:message>
+    <wsdl:message name="isSketchResponse">
+        <wsdl:part name="parameters" element="ns:isSketchResponse"/>
+    </wsdl:message>
+    <wsdl:message name="testRequest">
+        <wsdl:part name="parameters" element="ns:test"/>
+    </wsdl:message>
+    <wsdl:message name="testResponse">
+        <wsdl:part name="parameters" element="ns:testResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveAgreeCommentRequest">
+        <wsdl:part name="parameters" element="ns:saveAgreeComment"/>
+    </wsdl:message>
+    <wsdl:message name="saveAgreeCommentResponse">
+        <wsdl:part name="parameters" element="ns:saveAgreeCommentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getArgumentsRequest">
+        <wsdl:part name="parameters" element="ns:getArguments"/>
+    </wsdl:message>
+    <wsdl:message name="getArgumentsResponse">
+        <wsdl:part name="parameters" element="ns:getArgumentsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getProjectViewRequest">
+        <wsdl:part name="parameters" element="ns:getProjectView"/>
+    </wsdl:message>
+    <wsdl:message name="getProjectViewResponse">
+        <wsdl:part name="parameters" element="ns:getProjectViewResponse"/>
+    </wsdl:message>
+    <wsdl:message name="deleteKeywordedRequest">
+        <wsdl:part name="parameters" element="ns:deleteKeyworded"/>
+    </wsdl:message>
+    <wsdl:message name="deleteKeywordedResponse">
+        <wsdl:part name="parameters" element="ns:deleteKeywordedResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveTaggedRequest">
+        <wsdl:part name="parameters" element="ns:saveTagged"/>
+    </wsdl:message>
+    <wsdl:message name="saveTaggedResponse">
+        <wsdl:part name="parameters" element="ns:saveTaggedResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveCommentRequest">
+        <wsdl:part name="parameters" element="ns:saveComment"/>
+    </wsdl:message>
+    <wsdl:message name="saveCommentResponse">
+        <wsdl:part name="parameters" element="ns:saveCommentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveSignatureRequest">
+        <wsdl:part name="parameters" element="ns:saveSignature"/>
+    </wsdl:message>
+    <wsdl:message name="saveSignatureResponse">
+        <wsdl:part name="parameters" element="ns:saveSignatureResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveKeywordedRequest">
+        <wsdl:part name="parameters" element="ns:saveKeyworded"/>
+    </wsdl:message>
+    <wsdl:message name="saveKeywordedResponse">
+        <wsdl:part name="parameters" element="ns:saveKeywordedResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveKeywordRequest">
+        <wsdl:part name="parameters" element="ns:saveKeyword"/>
+    </wsdl:message>
+    <wsdl:message name="saveKeywordResponse">
+        <wsdl:part name="parameters" element="ns:saveKeywordResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveFollowingRequest">
+        <wsdl:part name="parameters" element="ns:saveFollowing"/>
+    </wsdl:message>
+    <wsdl:message name="saveFollowingResponse">
+        <wsdl:part name="parameters" element="ns:saveFollowingResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveArgumentRequest">
+        <wsdl:part name="parameters" element="ns:saveArgument"/>
+    </wsdl:message>
+    <wsdl:message name="saveArgumentResponse">
+        <wsdl:part name="parameters" element="ns:saveArgumentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveCitizenRequest">
+        <wsdl:part name="parameters" element="ns:saveCitizen"/>
+    </wsdl:message>
+    <wsdl:message name="saveCitizenResponse">
+        <wsdl:part name="parameters" element="ns:saveCitizenResponse"/>
+    </wsdl:message>
+    <wsdl:message name="saveProjectRequest">
+        <wsdl:part name="parameters" element="ns:saveProject"/>
+    </wsdl:message>
+    <wsdl:message name="saveProjectResponse">
+        <wsdl:part name="parameters" element="ns:saveProjectResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="DBAccessWSIPortType">
+        <wsdl:operation name="saveAgreeArgument">
+            <wsdl:input message="ns:saveAgreeArgumentRequest" wsaw:Action="urn:saveAgreeArgument"/>
+            <wsdl:output message="ns:saveAgreeArgumentResponse" wsaw:Action="urn:saveAgreeArgumentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="isSketch">
+            <wsdl:input message="ns:isSketchRequest" wsaw:Action="urn:isSketch"/>
+            <wsdl:output message="ns:isSketchResponse" wsaw:Action="urn:isSketchResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <wsdl:input message="ns:testRequest" wsaw:Action="urn:test"/>
+            <wsdl:output message="ns:testResponse" wsaw:Action="urn:testResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveAgreeComment">
+            <wsdl:input message="ns:saveAgreeCommentRequest" wsaw:Action="urn:saveAgreeComment"/>
+            <wsdl:output message="ns:saveAgreeCommentResponse" wsaw:Action="urn:saveAgreeCommentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getArguments">
+            <wsdl:input message="ns:getArgumentsRequest" wsaw:Action="urn:getArguments"/>
+            <wsdl:output message="ns:getArgumentsResponse" wsaw:Action="urn:getArgumentsResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getProjectView">
+            <wsdl:input message="ns:getProjectViewRequest" wsaw:Action="urn:getProjectView"/>
+            <wsdl:output message="ns:getProjectViewResponse" wsaw:Action="urn:getProjectViewResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteKeyworded">
+            <wsdl:input message="ns:deleteKeywordedRequest" wsaw:Action="urn:deleteKeyworded"/>
+            <wsdl:output message="ns:deleteKeywordedResponse" wsaw:Action="urn:deleteKeywordedResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveTagged">
+            <wsdl:input message="ns:saveTaggedRequest" wsaw:Action="urn:saveTagged"/>
+            <wsdl:output message="ns:saveTaggedResponse" wsaw:Action="urn:saveTaggedResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveComment">
+            <wsdl:input message="ns:saveCommentRequest" wsaw:Action="urn:saveComment"/>
+            <wsdl:output message="ns:saveCommentResponse" wsaw:Action="urn:saveCommentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveSignature">
+            <wsdl:input message="ns:saveSignatureRequest" wsaw:Action="urn:saveSignature"/>
+            <wsdl:output message="ns:saveSignatureResponse" wsaw:Action="urn:saveSignatureResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyworded">
+            <wsdl:input message="ns:saveKeywordedRequest" wsaw:Action="urn:saveKeyworded"/>
+            <wsdl:output message="ns:saveKeywordedResponse" wsaw:Action="urn:saveKeywordedResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyword">
+            <wsdl:input message="ns:saveKeywordRequest" wsaw:Action="urn:saveKeyword"/>
+            <wsdl:output message="ns:saveKeywordResponse" wsaw:Action="urn:saveKeywordResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveFollowing">
+            <wsdl:input message="ns:saveFollowingRequest" wsaw:Action="urn:saveFollowing"/>
+            <wsdl:output message="ns:saveFollowingResponse" wsaw:Action="urn:saveFollowingResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveArgument">
+            <wsdl:input message="ns:saveArgumentRequest" wsaw:Action="urn:saveArgument"/>
+            <wsdl:output message="ns:saveArgumentResponse" wsaw:Action="urn:saveArgumentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveCitizen">
+            <wsdl:input message="ns:saveCitizenRequest" wsaw:Action="urn:saveCitizen"/>
+            <wsdl:output message="ns:saveCitizenResponse" wsaw:Action="urn:saveCitizenResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="saveProject">
+            <wsdl:input message="ns:saveProjectRequest" wsaw:Action="urn:saveProject"/>
+            <wsdl:output message="ns:saveProjectResponse" wsaw:Action="urn:saveProjectResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DBAccessWSISoap11Binding" type="ns:DBAccessWSIPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="saveAgreeArgument">
+            <soap:operation soapAction="urn:saveAgreeArgument" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isSketch">
+            <soap:operation soapAction="urn:isSketch" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <soap:operation soapAction="urn:test" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveAgreeComment">
+            <soap:operation soapAction="urn:saveAgreeComment" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getProjectView">
+            <soap:operation soapAction="urn:getProjectView" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getArguments">
+            <soap:operation soapAction="urn:getArguments" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteKeyworded">
+            <soap:operation soapAction="urn:deleteKeyworded" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveComment">
+            <soap:operation soapAction="urn:saveComment" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveTagged">
+            <soap:operation soapAction="urn:saveTagged" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveSignature">
+            <soap:operation soapAction="urn:saveSignature" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyworded">
+            <soap:operation soapAction="urn:saveKeyworded" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyword">
+            <soap:operation soapAction="urn:saveKeyword" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveFollowing">
+            <soap:operation soapAction="urn:saveFollowing" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveArgument">
+            <soap:operation soapAction="urn:saveArgument" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveCitizen">
+            <soap:operation soapAction="urn:saveCitizen" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveProject">
+            <soap:operation soapAction="urn:saveProject" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="DBAccessWSISoap12Binding" type="ns:DBAccessWSIPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="saveAgreeArgument">
+            <soap12:operation soapAction="urn:saveAgreeArgument" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isSketch">
+            <soap12:operation soapAction="urn:isSketch" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <soap12:operation soapAction="urn:test" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveAgreeComment">
+            <soap12:operation soapAction="urn:saveAgreeComment" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getProjectView">
+            <soap12:operation soapAction="urn:getProjectView" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getArguments">
+            <soap12:operation soapAction="urn:getArguments" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteKeyworded">
+            <soap12:operation soapAction="urn:deleteKeyworded" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveComment">
+            <soap12:operation soapAction="urn:saveComment" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveTagged">
+            <soap12:operation soapAction="urn:saveTagged" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveSignature">
+            <soap12:operation soapAction="urn:saveSignature" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyworded">
+            <soap12:operation soapAction="urn:saveKeyworded" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyword">
+            <soap12:operation soapAction="urn:saveKeyword" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveFollowing">
+            <soap12:operation soapAction="urn:saveFollowing" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveArgument">
+            <soap12:operation soapAction="urn:saveArgument" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveCitizen">
+            <soap12:operation soapAction="urn:saveCitizen" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveProject">
+            <soap12:operation soapAction="urn:saveProject" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="DBAccessWSIHttpBinding" type="ns:DBAccessWSIPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="saveAgreeArgument">
+            <http:operation location="saveAgreeArgument"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isSketch">
+            <http:operation location="isSketch"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <http:operation location="test"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveAgreeComment">
+            <http:operation location="saveAgreeComment"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getProjectView">
+            <http:operation location="getProjectView"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getArguments">
+            <http:operation location="getArguments"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteKeyworded">
+            <http:operation location="deleteKeyworded"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveComment">
+            <http:operation location="saveComment"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveTagged">
+            <http:operation location="saveTagged"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveSignature">
+            <http:operation location="saveSignature"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyworded">
+            <http:operation location="saveKeyworded"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveKeyword">
+            <http:operation location="saveKeyword"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveFollowing">
+            <http:operation location="saveFollowing"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveArgument">
+            <http:operation location="saveArgument"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveCitizen">
+            <http:operation location="saveCitizen"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveProject">
+            <http:operation location="saveProject"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DBAccessWSI">
+        <wsdl:port name="DBAccessWSIHttpSoap11Endpoint" binding="ns:DBAccessWSISoap11Binding">
+            <soap:address location="http://localhost:8080/DBAccessWS/services/DBAccessWSI.DBAccessWSIHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="DBAccessWSIHttpSoap12Endpoint" binding="ns:DBAccessWSISoap12Binding">
+            <soap12:address location="http://localhost:8080/DBAccessWS/services/DBAccessWSI.DBAccessWSIHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="DBAccessWSIHttpEndpoint" binding="ns:DBAccessWSIHttpBinding">
+            <http:address location="http://localhost:8080/DBAccessWS/services/DBAccessWSI.DBAccessWSIHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
